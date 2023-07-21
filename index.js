@@ -28,29 +28,64 @@ function toStr(type) {
 
 // 返回一个转义序列字符串
 function color(...color) {
-    let result = '';
+    let result = ''
     for (let i = 0; i < color.length; i++) {
         // 对包装数组的文本采用原字符串输出
         if (toStr(color[i]) === '[object Array]') {
-            const arr = color[i];
+            const arr = color[i]
             for (let j = 0; j < arr.length; j++) {
-                result += arr[j];
+                result += arr[j]
             }
         }
         // 转义 返回对应 style内的样式
         else if (style[color[i]]) {
-            result += style[color[i]];
+            result += style[color[i]]
         }
         // 原始文本
         else {
-            result += color[i];
+            result += color[i]
         }
     }
     return result
 }
 
-color.log = function (...text) {
-    return console.log(color(...text))
+// 颜色
+color.green = function (text) {
+    return color('green', text, 'end')
 }
 
-module.exports = color;
+color.red = function (text) {
+    return color('red', text, 'end')
+}
+
+color.yellow = function (text) {
+    return color('yellow', text, 'end')
+}
+
+color.blue = function (text) {
+    return color('blue', text, 'end')
+}
+
+
+// 方法
+color.log = function (text) {
+    console.log(color(text))
+}
+
+color.success = function (text) {
+    console.log(color.green(text))
+}
+
+color.error = function (text) {
+    console.log(color.red(text))
+}
+
+color.warn = function (text) {
+    console.log(color.yellow(text))
+}
+
+color.info = function (text) {
+    console.log(color.blue(text))
+}
+
+module.exports = color

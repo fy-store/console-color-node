@@ -28,22 +28,37 @@ const color = require('console-color-node'); // 返回一个函数
 // 调用函数返回一段序列化后的字符串
 color('red', '这是一段红色文本', 'end'); // '\x1B[31m这是一段红色文本\x1B[0m'
 
-console.log(color('red', '这是一段红色文本', 'end')); // 输出带颜色的文字
-// 或
-color.log('red', '这是一段红色文本', 'end');
+console.log(color('red', '这是一段红色文本', 'end')) // 输出带颜色的文字
+
+// 或(内部使用 console.log() )
+color.log('red', '这是一段红色文本', 'end')
+
+
+/**
+ * 渲染和模板指令冲突的字符串
+ * 假设想输出 green 这个字符串
+ * 使用数组进行包装, 被数组包装的元素将以原始文本进行输出
+ */
+// console.log(color('green', 'green', 'end')) // 错误示例
+console.log(color('green', ['green'], 'end')) // 正确示例
+
+// 内置方法(仅处理第一个传入的参数)
+console.log(color.green('这是一段绿色文本'))
+console.log(color.red('这是一段红色文本'))
+console.log(color.yellow('这是一段黄色文本'))
+console.log(color.blue('这是一段蓝色文本'))
+
+color.success('成功')
+color.error('失败')
+color.warn('警告')
+color.info('重要信息')
+
+/** 
+ * 推荐在每个函数结束时使用 end 关闭颜色(初始化), 否则输出可能会影响后续的语句
+ * 内置方法内部自动调用 end 关闭 
+ */
 ```
 
-
-
-**挂载:**
-
-为了方便使用可以将它挂载至全局
-
-```js
-const color = require('console-color-node');
-console.color = color.log; // 挂载至console对象上
-console.color('red', '这是一段红色文本', 'end'); // 使用
-```
 
 
 
@@ -72,54 +87,3 @@ bg-purple: 背景紫色,
 bg-cyan: 背景青色,
 bg-white: 背景白色
 ```
-
-
-
-**示例:**
-
-```js
-// ===============示例================
-//
-// const color = require('console-color-node');
-//
-// 直接调用
-// color.log('red', 'underline', 'bold', 'bg-yellow', '这是一段紫色文本', 'end');
-//
-//
-// 挂载至 console上
-// console.color = color.log;
-//
-// 使用示例
-// console.color('red', '这是一段红色文本', 'end', 'blue', '这是一段蓝色文本', 'end');
-//
-// 当需要使用纯文本而与内置标识符(style)冲突时, 可以使用数组进行包装
-// console.color('red', ['red'], 'end', 'green', ['green'], 'end');
-//
-// 推荐在每个函数结束时使用 end 关闭颜色(初始化), 否则输出可能会影响后续的语句
-
-// console.log(color('red', 'underline', 'bold', 'bg-yellow', '这是一段红色文本', 'end'));
-```
-
-
-
-
-
-**内置log方法:**
-
-在 color 函数上提供了一个 log() 方法, 即 color.log()
-
-该方法内部调用 console.log() , 是在其基础上进行封装
-
-*示例:*
-
-```js
-const color = require(' color-console-log');
-// =======
-let text = color('red', '这是一段红色文本', 'end'); // 获得转义序列字符串
-console.log(text); // 输出字符串
-
-// =======
-// 可以简写为
-color.log('red', '这是一段红色文本', 'end');
-```
-
