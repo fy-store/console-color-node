@@ -48,10 +48,12 @@ console.log(color.red('这是一段红色文本'))
 console.log(color.yellow('这是一段黄色文本'))
 console.log(color.blue('这是一段蓝色文本'))
 
+// 内置方法(允许传入多个参数)
 color.success('成功')
 color.error('失败')
 color.warn('警告')
-color.info('重要信息')
+color.info('信息')
+color.info('信息', '这是一条有用的信息')
 
 /** 
  * 推荐在每个函数结束时使用 end 关闭颜色(初始化), 否则输出可能会影响后续的语句

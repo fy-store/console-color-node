@@ -1,6 +1,6 @@
 {
   "name": "console-color-node",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "提供常用的控制台颜色转义序列",
   "main": "index.js",
   "author": "feiYu",

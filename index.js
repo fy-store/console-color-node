@@ -68,24 +68,36 @@ color.blue = function (text) {
 
 
 // 方法
-color.log = function (text) {
-    console.log(color(text))
+color.log = function (...texts) { // 该方法后续不再被推荐使用
+    console.log(color(...texts))
 }
 
-color.success = function (text) {
-    console.log(color.green(text))
+color.success = function (...texts) {
+    console.log(...map(texts, 'green'))
 }
 
-color.error = function (text) {
-    console.log(color.red(text))
+color.error = function (...texts) {
+    console.log(...map(texts, 'red'))
 }
 
-color.warn = function (text) {
-    console.log(color.yellow(text))
+color.warn = function (...texts) {
+    console.log(...map(texts, 'yellow'))
 }
 
-color.info = function (text) {
-    console.log(color.blue(text))
+color.info = function (...texts) {
+    console.log(...map(texts, 'blue'))
+}
+
+/**
+ * 辅助方法
+ * @param {Array} textArr 字符串数组
+ * @param {String} colorValue 色值
+ * @returns {Array} 返回一个经过序列化的字符串数组
+ */
+const map = (textArr, colorValue) => {
+    return textArr.map(item => {
+        return color[colorValue](item)
+    })
 }
 
 module.exports = color
