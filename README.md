@@ -18,47 +18,48 @@ npm i console-color-node
 yarn add console-color-node
 ```
 
+*pnpm*
+
+```cmd
+pnpm add console-color-node
+```
+
 
 
 **使用:**
 
 ```js
-const color = require('console-color-node'); // 返回一个函数
+// 导入模块
+const color = require('console-color-node') 
 
 // 调用函数返回一段序列化后的字符串
-color('red', '这是一段红色文本', 'end'); // '\x1B[31m这是一段红色文本\x1B[0m'
+color('red', '这是一段红色文本') // '\x1B[31m这是一段红色文本\x1B[0m'
 
-console.log(color('red', '这是一段红色文本', 'end')) // 输出带颜色的文字
-
-// 或(内部使用 console.log() )
-color.log('red', '这是一段红色文本', 'end')
-
+// 输出带颜色的文字
+console.log(color('red', '这是一段红色文本')) 
 
 /**
  * 渲染和模板指令冲突的字符串
  * 假设想输出 green 这个字符串
  * 使用数组进行包装, 被数组包装的元素将以原始文本进行输出
  */
-// console.log(color('green', 'green', 'end')) // 错误示例
-console.log(color('green', ['green'], 'end')) // 正确示例
+// console.log(color('green', 'green')) // 错误示例
+console.log(color('green', ['green'])) // 正确示例
 
-// 内置方法(仅处理第一个传入的参数)
+// 快速返回一个指定颜色序列化后的字符串(传入多个参数将被拼接合并)
 console.log(color.green('这是一段绿色文本'))
 console.log(color.red('这是一段红色文本'))
 console.log(color.yellow('这是一段黄色文本'))
 console.log(color.blue('这是一段蓝色文本'))
+console.log(color.cyan('这是一段蓝绿色文本'))
+......
 
-// 内置方法(允许传入多个参数)
+// 内置方法
 color.success('成功')
 color.error('失败')
 color.warn('警告')
 color.info('信息')
 color.info('信息', '这是一条有用的信息')
-
-/** 
- * 推荐在每个函数结束时使用 end 关闭颜色(初始化), 否则输出可能会影响后续的语句
- * 内置方法内部自动调用 end 关闭 
- */
 ```
 
 

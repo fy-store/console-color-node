@@ -26,7 +26,11 @@ function toStr(type) {
     return Object.prototype.toString.call(type)
 }
 
-// 返回一个转义序列字符串
+/** 
+ * 返回一个经过转义序列化的字符串
+ * @param {...string} color 需要序列化的字符串
+ * @returns {string} 一个经过转义序列化的字符串
+ */
 function color(...color) {
     let result = ''
     for (let i = 0; i < color.length; i++) {
@@ -46,46 +50,56 @@ function color(...color) {
             result += color[i]
         }
     }
+    result += style['end']
     return result
 }
 
-// 颜色
-color.green = function (text) {
-    return color('green', text, 'end')
-}
+/** 颜色 */
+Object.keys(style).forEach(item => {
+    /** 
+     * 快速输出一个序列化后的文本
+     * @param {...string} texts 需要序列化的字符串
+     * @returns {string} 一个经过转义序列化的字符串
+     */
+    color[item] = (...texts) => {
+        return color(item, texts, 'end')
+    }
+})
 
-color.red = function (text) {
-    return color('red', text, 'end')
-}
-
-color.yellow = function (text) {
-    return color('yellow', text, 'end')
-}
-
-color.blue = function (text) {
-    return color('blue', text, 'end')
-}
-
-
-// 方法
-color.log = function (...texts) { // 该方法后续不再被推荐使用
-    console.log(color(...texts))
-}
-
+/** 
+ * 输出成功文本(绿色) 
+ * @param {...string} texts 需要序列化的字符串
+ * @returns {string} 一个经过转义序列化的字符串
+ */
 color.success = function (...texts) {
     console.log(...map(texts, 'green'))
 }
 
+/** 
+ * 输出失败文本(红色)
+ * @param {...string} texts 需要序列化的字符串
+ * @returns {string} 一个经过转义序列化的字符串
+ */
 color.error = function (...texts) {
     console.log(...map(texts, 'red'))
 }
 
+/** 
+ * 输出警告文本(黄色)
+ * @param {...string} texts 需要序列化的字符串
+ * @returns {string} 一个经过转义序列化的字符串
+ */
 color.warn = function (...texts) {
     console.log(...map(texts, 'yellow'))
 }
 
+/** 
+ * 输出信息文本(蓝绿色) 
+ * @param {...string} texts 需要序列化的字符串
+ * @returns {string} 一个经过转义序列化的字符串
+ */
 color.info = function (...texts) {
-    console.log(...map(texts, 'blue'))
+    console.log(...map(texts, 'cyan'))
 }
 
 /**
