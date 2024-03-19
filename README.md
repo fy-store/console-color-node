@@ -1,3 +1,8 @@
+# 弃用声明
+
+已弃用, 推荐使用 <a href="https://github.com/chalk/chalk">chalk</a>
+
+
 ## console-color-node
 
 > 提供常用的控制台颜色转义序列
